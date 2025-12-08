@@ -1,0 +1,112 @@
+═══════════════════════════════════════════════════════════════
+  GUIDE : UTILISER UN SEUL CHEAT (.BIN) AU LIEU DE 7
+═══════════════════════════════════════════════════════════════
+
+OPTION 1: MODIFIER LD.EXE POUR N'AFFICHER QU'UN SEUL CHEAT
+─────────────────────────────────────────────────────────────
+C'est la méthode recommandée si tu veux que le loader n'affiche
+qu'un seul cheat dans l'interface.
+
+ÉTAPE 1: Identifier le cheat que tu veux
+─────────────────────────────────────────
+Les 7 cheats disponibles:
+  - DC (1).bin  → Double Click
+  - GC (1).bin  → Ghost Click
+  - HC.bin      → Hollow Click
+  - KD (1).bin  → Kill Delay
+  - LC (2).bin  → Low Click
+  - PC (1).bin  → Perfect Click
+  - TK (1).bin  → Time Kill
+
+Choisis celui que tu veux (exemple: HC.bin)
+
+ÉTAPE 2: Ouvrir LD.exe dans dnSpy
+──────────────────────────────────
+1. Lance dnSpy.exe
+2. Fichier > Ouvrir (Ctrl+O)
+3. Sélectionne: pote\cheat\LD.exe
+
+ÉTAPE 3: Trouver où la liste des cheats est définie
+──────────────────────────────────────────────────────
+1. Dans l'arborescence, développe: LD.exe > Definitive > HollowClicker
+2. Clique sur: Form1
+3. Cherche dans le code:
+   - Une méthode qui initialise la liste (InitializeComponent ou Form1_Load)
+   - Ou une liste/array qui contient les noms des cheats
+   - Cherche des strings comme "DC", "GC", "HC", "KD", "LC", "PC", "TK"
+
+ÉTAPE 4: Modifier la liste pour ne garder qu'un seul cheat
+───────────────────────────────────────────────────────────
+Exemple si tu veux garder seulement HC:
+  - Supprime ou commente les autres cheats de la liste
+  - Garde seulement "HC" dans la liste
+
+ÉTAPE 5: Modifier getCheatUrl (si nécessaire)
+──────────────────────────────────────────────
+1. Trouve la méthode getCheatUrl
+2. Vérifie qu'elle construit bien l'URL avec le nom du cheat
+3. Si tu gardes seulement "HC", l'URL devrait être:
+   "https://github.com/TON_REPO/releases/download/CHT/HC.bin"
+
+ÉTAPE 6: Sauvegarder
+─────────────────────
+1. Fichier > Enregistrer le module (Ctrl+Shift+S)
+2. Sauvegarde comme: LD_modified.exe
+
+═══════════════════════════════════════════════════════════════
+
+OPTION 2: METTRE UN SEUL .BIN SUR LE REPO (PLUS SIMPLE)
+──────────────────────────────────────────────────────────
+Si tu ne veux pas modifier LD.exe, tu peux juste mettre un seul
+.bin sur ton repo. Le loader essaiera de le télécharger quand tu
+cliques dessus dans l'interface.
+
+ÉTAPE 1: Choisir le .bin que tu veux
+─────────────────────────────────────
+Exemple: HC.bin
+
+ÉTAPE 2: Créer une Release sur GitHub
+───────────────────────────────────────
+1. Va sur ton repo GitHub
+2. Clique sur "Releases" (à droite)
+3. Clique sur "Create a new release"
+4. Tag version: CHT
+5. Release title: CHT
+6. Clique sur "Publish release"
+
+ÉTAPE 3: Upload le .bin dans la Release
+─────────────────────────────────────────
+1. Dans la page de la release, clique sur "Edit release"
+2. Scroll en bas, section "Attach binaries"
+3. Upload seulement le .bin que tu veux (ex: HC.bin)
+4. Clique sur "Update release"
+
+ÉTAPE 4: Modifier LD.exe pour pointer vers ton repo
+─────────────────────────────────────────────────────
+1. Ouvre LD.exe dans dnSpy
+2. Trouve getCheatUrl
+3. Remplace l'URL:
+   Ancien: "https://github.com/forensics-honor/exe/releases/download/CHT/"
+   Nouveau: "https://github.com/TON_USERNAME/TON_REPO/releases/download/CHT/"
+4. Sauvegarde comme LD_modified.exe
+
+ÉTAPE 5: Utiliser le loader
+──────────────────────────────
+1. Lance le loader (via commande.txt)
+2. Dans l'interface, tu verras tous les cheats listés
+3. Clique sur celui qui correspond à ton .bin (ex: HC)
+4. Le loader téléchargera HC.bin depuis ton repo
+5. Les autres cheats ne fonctionneront pas (erreur 404)
+
+═══════════════════════════════════════════════════════════════
+
+RECOMMANDATION
+───────────────
+Si tu veux vraiment que le loader n'affiche qu'un seul cheat,
+utilise l'OPTION 1 (modifier la liste dans LD.exe).
+
+Si tu veux juste tester avec un seul cheat rapidement,
+utilise l'OPTION 2 (mettre un seul .bin sur le repo).
+
+═══════════════════════════════════════════════════════════════
+
